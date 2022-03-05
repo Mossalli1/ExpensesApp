@@ -2,8 +2,6 @@ import React from 'react';
 import Router from './Router';
 import {Provider} from 'react-redux';
 import {store, persistor} from './src/redux/store';
-// import store from './src/redux/store';
-// import persistor from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
