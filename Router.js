@@ -64,11 +64,15 @@ const Router: () => Node = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
+        style={backgroundStyle}
+        contentContainerStyle={{height: '100%'}}>
         {/* <Header /> */}
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            // backgroundColor: 'red',
+            flex: 1,
+            // height: '100%',
           }}>
           <Section>Hello world</Section>
           {/* <Section title="See Your Changes">
