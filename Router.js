@@ -26,6 +26,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
+import HomeScreen from './src/screens/home';
+import ExpencesLog from './src/screens/expencesLog';
+
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
@@ -52,6 +57,8 @@ const Section = ({children, title}): Node => {
   );
 };
 
+const Drawer = createDrawerNavigator();
+
 const Router: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -60,34 +67,15 @@ const Router: () => Node = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}
-        contentContainerStyle={{height: '100%'}}>
-        {/* <Header /> */}
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            // backgroundColor: 'red',
-            flex: 1,
-            // height: '100%',
-          }}>
-          <Section>Hello world</Section>
-          {/* <Section title="See Your Changes">
-             <ReloadInstructions />
-           </Section>
-           <Section title="Debug">
-             <DebugInstructions />
-           </Section>
-           <Section title="Learn More">
-             Read the docs to discover what to do next:
-           </Section> */}
-          {/* <LearnMoreLinks /> */}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    // <SafeAreaView style={backgroundStyle}>
+    //   <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="ExpenseLog" component={ExpencesLog} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+    // </SafeAreaView>
   );
 };
 
@@ -110,4 +98,74 @@ const styles = StyleSheet.create({
   },
 });
 
+// import * as React from 'react';
+// import {View, Text, Button} from 'react-native';
+// import {NavigationContainer} from '@react-navigation/native';
+// import {
+//   createDrawerNavigator,
+//   DrawerContentScrollView,
+//   DrawerItemList,
+//   DrawerItem,
+// } from '@react-navigation/drawer';
+// function Feed({navigation}) {
+//   return (
+//     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+//       <Text>Feed Screen</Text>
+//       <Button title="Open drawer" onPress={() => navigation.openDrawer()} />
+//       <Button title="Toggle drawer" onPress={() => navigation.toggleDrawer()} />
+//     </View>
+//   );
+// }
+
+// function Notifications() {
+//   return (
+//     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+//       <Text>Notifications Screen</Text>
+//     </View>
+//   );
+// }
+
+// function CustomDrawerContent(props) {
+//   return (
+//     <DrawerContentScrollView {...props}>
+//       <DrawerItemList {...props} />
+//       <DrawerItem
+//         label="Close drawer"
+//         onPress={() => props.navigation.closeDrawer()}
+//       />
+//       <DrawerItem
+//         label="Toggle drawer"
+//         onPress={() => props.navigation.toggleDrawer()}
+//       />
+//     </DrawerContentScrollView>
+//   );
+// }
+
+// const Drawer = createDrawerNavigator();
+
+// function MyDrawer() {
+//   return (
+//     <Drawer.Navigator
+//       drawerContent={props => <CustomDrawerContent {...props} />}>
+//       <Drawer.Screen name="Feed" component={Feed} />
+//       <Drawer.Screen name="Notifications" component={Notifications} />
+//     </Drawer.Navigator>
+//   );
+// }
+
+// function Router() {
+//   return (
+//     <NavigationContainer>
+//       <MyDrawer />
+//     </NavigationContainer>
+//   );
+// }
+
+// const Router = () => {
+//   return (
+//     <View>
+//       <Text>Hello</Text>
+//     </View>
+//   );
+// };
 export default Router;
