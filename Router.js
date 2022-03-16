@@ -16,6 +16,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Dimensions,
 } from 'react-native';
 
 import {
@@ -39,6 +40,8 @@ import ExpencesLog from './src/screens/expencesLog';
 
 //icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+const {width, height} = Dimensions.get('window');
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -149,7 +152,7 @@ const Router: () => Node = () => {
           tabBarPosition={'bottom'}
           screenOptions={{
             tabBarLabelStyle: {fontSize: 12},
-            tabBarItemStyle: {width: 100},
+            tabBarItemStyle: {width: width / 3},
             tabBarStyle: {backgroundColor: 'powderblue'},
             tabBarIndicatorStyle: {top: 0, backgroundColor: 'red'},
           }}>

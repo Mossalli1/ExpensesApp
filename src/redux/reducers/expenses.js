@@ -16,7 +16,7 @@ export default expenses.reducer;
 
 // Action
 const {valueSuccess} = expenses.actions;
-export const setValue = value => async dispatch => {
+export const setExpensesValue = value => async dispatch => {
   try {
     dispatch(valueSuccess(value));
   } catch (e) {
