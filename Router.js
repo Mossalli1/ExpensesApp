@@ -26,10 +26,19 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {createDrawerNavigator} from '@react-navigation/drawer';
+//Navigations Library
 import {NavigationContainer} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+
+//Screens
 import HomeScreen from './src/screens/home';
 import ExpencesLog from './src/screens/expencesLog';
+
+//icons
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -58,24 +67,114 @@ const Section = ({children, title}): Node => {
 };
 
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+const MaterialTab = createMaterialBottomTabNavigator();
+const MaterialTopTab = createMaterialTopTabNavigator();
+
+function Root() {
+  return (
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="ExpenseLog" component={ExpencesLog} />
+    </Drawer.Navigator>
+  );
+}
 
 const Router: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
   };
 
   return (
-    // <SafeAreaView style={backgroundStyle}>
-    //   <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="ExpenseLog" component={ExpencesLog} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-    // </SafeAreaView>
+    <SafeAreaView style={backgroundStyle}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <NavigationContainer>
+        {/* //Normal Tab Navigator */}
+        {/* <Tab.Navigator>
+          <Tab.Screen
+            name="Home"
+            component={Root}
+            options={{headerShown: false}}
+          />
+          <Tab.Screen
+            name="ExpenseLog"
+            component={ExpencesLog}
+            options={{
+              tabBarLabel: 'Updates',
+              tabBarIcon: ({color, size}) => (
+                <MaterialCommunityIcons
+                  name="beach"
+                  color={color}
+                  size={size}
+                />
+              ),
+              tabBarBadge: 2,
+            }}
+          />
+        </Tab.Navigator> */}
+        {/* MaterialTab Navigator */}
+        {/* <MaterialTab.Navigator
+          initialRouteName="Home"
+          activeColor="#F39E1E"
+          inactiveColor="#6A6A6A"
+          barStyle={{
+            backgroundColor: '#F3F2F2',
+            borderTopColor: 'red',
+            borderTopWidth: 1,
+          }}>
+          <Tab.Screen name="Home" component={Root} />
+          <Tab.Screen
+            name="Home1"
+            component={Root}
+            options={{tabBarColor: 'red'}}
+          />
+          <Tab.Screen
+            name="ExpenseLog"
+            component={ExpencesLog}
+            options={{
+              tabBarLabel: 'Updates',
+              tabBarIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="bell" color={color} size={size} />
+              ),
+              tabBarBadge: 2,
+            }}
+          />
+        </MaterialTab.Navigator> */}
+
+        {/* MaterialTopTab Navigator */}
+        <MaterialTopTab.Navigator
+          tabBarPosition={'bottom'}
+          screenOptions={{
+            tabBarLabelStyle: {fontSize: 12},
+            tabBarItemStyle: {width: 100},
+            tabBarStyle: {backgroundColor: 'powderblue'},
+            tabBarIndicatorStyle: {top: 0, backgroundColor: 'red'},
+          }}>
+          {/* <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} /> */}
+          <MaterialTopTab.Screen name="Home" component={Root} />
+          <MaterialTopTab.Screen
+            name="Home1"
+            component={Root}
+            options={{tabBarColor: 'red'}}
+          />
+          <MaterialTopTab.Screen
+            name="ExpenseLog"
+            component={ExpencesLog}
+            options={{
+              tabBarLabel: 'Updates',
+              tabBarIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="bell" color={color} size={size} />
+              ),
+              // tabBarBadge: 2,
+            }}
+          />
+        </MaterialTopTab.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   );
 };
 
