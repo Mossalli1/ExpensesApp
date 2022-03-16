@@ -10,6 +10,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import logger from 'redux-logger';
 // import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
 import {configureStore} from '@reduxjs/toolkit';
@@ -34,9 +35,8 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(logger),
 });
-// const persistor = persistStore(store);
 let persistor = persistStore(store);
 
 export {store, persistor};
